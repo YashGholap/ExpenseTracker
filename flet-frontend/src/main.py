@@ -1,26 +1,25 @@
 import flet as ft
-
+from views.login import LoginView
+from views.register import RegisterView
 
 def main(page: ft.Page):
-    counter = ft.Text("0", size=50, data=0)
-
-    def increment_click(e):
-        counter.data += 1
-        counter.value = str(counter.data)
-        counter.update()
-
-    page.floating_action_button = ft.FloatingActionButton(
-        icon=ft.Icons.ADD, on_click=increment_click
-    )
-    page.add(
-        ft.SafeArea(
-            ft.Container(
-                counter,
-                alignment=ft.alignment.center,
-            ),
-            expand=True,
-        )
-    )
-
-
-ft.app(main)
+    
+    def route_change(route):
+        page.views.clear()
+        
+        if page.route ==  "/":
+            page.views.append(LoginView(page))
+        elif page.route == "/register":
+            page.views.append(RegisterView(page))
+        # elif page.route == '/dashboard':
+        #     page.views.append(dashboard_view(page))
+            
+            
+        page.update()
+        
+    page.on_route_change = route_change
+    page.go('/')
+    
+    
+if __name__ == '__main__':
+    ft.app(target=main)
