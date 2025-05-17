@@ -1,6 +1,9 @@
 import flet as ft
-from views.login import LoginView
-from views.register import RegisterView
+from views import (
+    login, 
+    register, 
+    dashboard
+)
 
 def main(page: ft.Page):
     
@@ -8,11 +11,11 @@ def main(page: ft.Page):
         page.views.clear()
         
         if page.route ==  "/":
-            page.views.append(LoginView(page))
+            page.views.append(login.LoginView(page))
         elif page.route == "/register":
-            page.views.append(RegisterView(page))
-        # elif page.route == '/dashboard':
-        #     page.views.append(dashboard_view(page))
+            page.views.append(register.RegisterView(page))
+        elif page.route == '/dashboard':
+            page.views.append(dashboard.DashboardView(page))
             
             
         page.update()

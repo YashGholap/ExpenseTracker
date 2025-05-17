@@ -60,6 +60,7 @@ class LoginView(ft.View):
             if response.status_code == 200:
                 token = response.json().get("access_token")
                 self.page.session.set("token",token)
+                self.page.session.set("user_email", email)
                 self.page.go("/dashboard")
             else:
                 self.status_text.value = "Invalid Credentials"
